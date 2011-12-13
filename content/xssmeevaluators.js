@@ -55,7 +55,12 @@ function checkForExactAttackText(streamListener){
     var rv = null;
     var grabTextWithOutTrailingWhitespaceRegExp = /^(.*[^\s])\s*$/;
     var searchString = grabTextWithOutTrailingWhitespaceRegExp.
-            exec(streamListener.attackRunner.testValue.string)[1];
+            exec(streamListener.attackRunner.testValue.string);
+
+    if ( searchString === null ) {
+        setTimeout( function(){ throw "SEARCH STRING RETURNED NULL" }, 10 );
+    }
+    searchString = searchString[1];
     var specials = [
             '/', '.', '*', '+', '?', '|',
             '(', ')', '[', ']', '{', '}', '\\'];
